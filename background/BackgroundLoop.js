@@ -2,10 +2,12 @@ import Animated, {useSharedValue, useAnimatedStyle, withTiming, Easing, runOnJS}
 import React, {useEffect} from 'react';
 import { Dimensions, Image } from "react-native";
 
-const {width: Tela} = Dimensions.get('window');
-
+const {width: Tela} = Dimensions.get('window'); //Dimension retorna um objeto com as caracteristicas da tela,
+                                                //{width: tela} pega so o width e bota numa variavel [tela]
 export default function BackgroundLoop() {
     const translateX = useSharedValue(Tela); //começa fora da tela na direita
+                                             //useSharedValue e para criar um valor com gets e sets porque e mais seguro alterar apenas ele do que direto na variavel
+                                             //em teoria deve ser possivel fazer um tela.set() e tela.get()
 
     const animatedStyle = useAnimatedStyle(() => ({
         transform: [{translateX: translateX.value}],
