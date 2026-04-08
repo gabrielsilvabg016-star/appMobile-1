@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
-import Background from './BackgroundLoop';
+import Background from './BackgroundLoop';//remover isso depois, nome antigo da função
 import BackgroundLoop from './BackgroundLoop';
+import Player from './Player';
 
 export default function App() {
   return (
@@ -8,7 +9,8 @@ export default function App() {
     //esse <backgroundloop> ta na camada 0 o <text> ta na camada 1, ent o text aparece encima da imagem
     //ordem das camadas = 0 > 1 > 2 > etc... 
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <BackgroundLoop />
+      <BackgroundLoop/>
+      <Player/>
       <Text>texto de teste</Text>
     </View>
   );
