@@ -1,8 +1,8 @@
 bibliotecas utilizadas por enquanto
 
 [Animação]
-npm install react-native-reanimated/b
-npm install react-native-worklets/b
+npm install react-native-reanimated<br>
+npm install react-native-worklets<br>
 
 [Bottom Tabs]
 npm install @react-navigation/native
