@@ -1,6 +1,6 @@
 bibliotecas utilizadas por enquanto
 
-[Animação]
+<h3>[Animação]</h3>
 npm install react-native-reanimated<br>
 npm install react-native-worklets<br>
 
