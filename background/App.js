@@ -1,17 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native';
-import Background from './BackgroundLoop';//remover isso depois, nome antigo da função
-import BackgroundLoop from './BackgroundLoop';
-import Player from './Player';
-
-export default function App() {
-  return (
-    //tem um sistema de camadas proprio do js (eu acho), quanto mais pra baixo maior a camada
-    //esse <backgroundloop> ta na camada 0 o <text> ta na camada 1, ent o text aparece encima da imagem
-    //ordem das camadas = 0 > 1 > 2 > etc... 
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <BackgroundLoop/>
-      <Player/>
-      <Text>texto de teste</Text>
-    </View>
-  );
+import BottomTabs from './BottomTabs';
+import NavDrawer from './NavDrawer';
+//concertar o navDrawer depois, esta ocupando a tela inteira, talvez fazer um unico arquivo que armazena tabs e drawer?//
+export default function App(){
+    return(
+        <View style={{ flex: 1}}>
+            <BottomTabs style = {{bottom: 5}}/>
+        </View>
+    )
 }

@@ -9,7 +9,7 @@ import Animated, {
 } from "react-native-reanimated"; //withSequence era utilizado no pulo antigo
 
 export default function Player(){
-    const posiInicial = useSharedValue(150); //posição inicial no eixo Y
+    const posiInicial = useSharedValue(270); //posição inicial no eixo Y
     const translateY = useSharedValue(posiInicial.value);
     const isJumping = useSharedValue(false);//boolean para pulo
     const pressStart = useSharedValue(0);//detectar inicio do clique
@@ -77,16 +77,15 @@ export default function Player(){
         <Pressable
         onPressIn={onPressIn}
         onPressOut={onPressOut}
-        style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+        style={{left: 15 ,alignSelf: "flex-start", transform: [{scaleX: -1}]}}>
             <Animated.Image source={require("./assets/doroRunning.gif")}
                 style = {[
                     {
-                        width: 80,
-                        height: 80,
-                        borderWidth: 1,
-                        borderRadius: 80,
-                        backgroundColor: "green",
-                        overflow: "hidden",
+                        width: 130,
+                        height: 130,
+                        //borderWidth: 1,
+                        //borderRadius: 80,
+                        //backgroundColor: "green",
                     },
                     style,
                 ]}

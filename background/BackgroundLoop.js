@@ -1,45 +1,50 @@
-import Animated, {useSharedValue, useAnimatedStyle, withTiming, Easing} from "react-native-reanimated";
+import Animated, {useSharedValue, useAnimatedStyle, withTiming, withRepeat, Easing} from "react-native-reanimated";
 import React, {useEffect} from 'react';
-import { Dimensions, Image } from "react-native";
+import { Dimensions, Image, View } from "react-native";
 import { scheduleOnRN } from "react-native-worklets";
 
 const {width: TelaLargura, height: TelaAltura} = Dimensions.get('window'); //Dimension retorna um objeto com as caracteristicas da tela,
-                                                //{width: tela} pega so o width e bota numa variavel [tela]
-export default function BackgroundLoop() {
-    const translateX = useSharedValue(TelaLargura); //começa fora da tela na direita
-                                             //useSharedValue e para criar um valor com gets e sets porque e mais seguro alterar apenas ele do que direto na variavel
-                                             //em teoria deve ser possivel fazer um tela.set() e tela.get()
+const source = require("./assets/imgBackground.png");
 
-    const animatedStyle = useAnimatedStyle(() => ({
-        transform: [{translateX: translateX.value}],
-    }));
+export default function BackgroundLoop() {
+    const prog = useSharedValue(0);
+    const vell = 15000; //velocidade
+    const imageLargura = 3995; //dados tirados direto da imgBackground
+    const imageAltura = 742;
+
+    const escala = TelaAltura/imageAltura;
+    const display = imageLargura*escala;
 
     useEffect(() => {
-        const animate = () => {
-            translateX.value = withTiming(//permite criar um loop com duração e tipo de saida[easing]
-                -500, //move para a esquerda // velocidade de movimento para a esquerda   
-                { duration: 15000, easing: Easing.linear},
-                () => {
-                    translateX.value = TelaLargura;
-                    scheduleOnRN(animate)(); //fazer a função ser chamada dnv num loop
-                }
-            );
-        };
-        animate();
+        prog.value = withRepeat(
+            withTiming(display, {
+                duration: vell, 
+                easing: Easing.linear,
+            }),
+            -1,
+            false
+        );
     }, []);
 
+    const animatedStyle = useAnimatedStyle(() => ({
+        transform: [{translateX: -(prog.value%display)}]
+    }));
+
+    /*const animatedStyle2 = useAnimatedStyle(() => {
+        const translateX = -(prog.value % display) + display;
+        return {
+            transform: [{translateX}],
+        };
+    });*/
+
   return (
-    <Animated.Image
-    source={require('./assets/backgroundtemp.webp')}
-      style={[{
-        flex: 1,
-        width: TelaLargura,
-        height: TelaAltura,
-        position: 'absolute',
-        //borderWidth: 1,
-        //backgroundColor: 'purple',
-        }, animatedStyle]}
-      resizeMode={'cover'}
-    />
+    <View style={{position:'absolute', width:TelaLargura, height: TelaAltura, overflow: 'hidden'}}>
+    <Animated.View style={[{flexDirection: "row", height: TelaAltura}, animatedStyle]}>
+        <Image source={source} style={{width: display, height: TelaAltura}} resizeMode="cover"/>
+        <Image source={source} style={{width: display, height: TelaAltura}} resizeMode="cover"/>
+        <Image source={source} style={{width: display, height: TelaAltura}} resizeMode="cover"/>
+    </Animated.View>
+    
+    </View>
   );
 }
