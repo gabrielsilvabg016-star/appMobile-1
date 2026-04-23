@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Pressable } from "react-native";
 import Animated, {
     useSharedValue,
@@ -7,8 +7,13 @@ import Animated, {
     withSequence,
     Easing,
 } from "react-native-reanimated"; //withSequence era utilizado no pulo antigo
+import { useContext } from "react";
+import { PlayerContext } from "./PlayerContext";
+//import { Image } from "react-native";
 
-export default function Player(){
+export default function Player({}){
+    
+    const {playerSkin} = useContext(PlayerContext);
     const posiInicial = useSharedValue(270); //posição inicial no eixo Y
     const translateY = useSharedValue(posiInicial.value);
     const isJumping = useSharedValue(false);//boolean para pulo
@@ -78,14 +83,14 @@ export default function Player(){
         onPressIn={onPressIn}
         onPressOut={onPressOut}
         style={{left: 15 ,alignSelf: "flex-start", transform: [{scaleX: -1}]}}>
-            <Animated.Image source={require("./assets/doroRunning.gif")}
+            <Animated.Image source={playerSkin}
                 style = {[
                     {
                         width: 130,
                         height: 130,
-                        //borderWidth: 1,
-                        //borderRadius: 80,
-                        //backgroundColor: "green",
+                        borderWidth: 1,
+                        borderRadius: 80,
+                        //backgroundColor: "#FFB6C1",
                     },
                     style,
                 ]}

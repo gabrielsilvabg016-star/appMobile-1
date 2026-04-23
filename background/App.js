@@ -1,11 +1,23 @@
 import { StyleSheet, Text, View } from 'react-native';
-import BottomTabs from './BottomTabs';
-import NavDrawer from './NavDrawer';
-//concertar o navDrawer depois, esta ocupando a tela inteira, talvez fazer um unico arquivo que armazena tabs e drawer?//
+import { PlayerProvider } from './PlayerContext';
+import { NavigationContainer } from '@react-navigation/native';
+import { useEffect } from 'react';
+
+import { play } from './MusicController';
+import NavController from './NavController';
+
 export default function App(){
+    useEffect(() => {
+        play();
+    }, []);
+
     return(
         <View style={{ flex: 1}}>
-            <BottomTabs style = {{bottom: 5}}/>
+            <NavigationContainer>
+                <PlayerProvider>
+                    <NavController/>
+                </PlayerProvider>
+            </NavigationContainer>
         </View>
     )
 }

@@ -6,12 +6,13 @@ import { Ionicons as Icon} from '@expo/vector-icons';
 
 import Game from './screens/Game';
 import Loja from './screens/Loja';
+import Musica from './screens/Musica';
 
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabs() {
     return(
-        <NavigationContainer>
+        <View style={{flex:1}}>
             <Tab.Navigator screenOptions ={{
             headerShown: false,
             tabBarStyle: {paddingBottom: 5, height: 65,},
@@ -23,6 +24,7 @@ export default function BottomTabs() {
 
             <Tab.Screen name="Game" component = {Game}
                 options={{
+                    sceneContainerStyle: {backgroundColor: 'transparent'},
                     tabBarIcon: ({color, size}) =>
                         <Icon name="game-controller-outline" size={size} color={color}/>
                 }}/>
@@ -34,6 +36,6 @@ export default function BottomTabs() {
                 }}/>
             </Tab.Navigator>
             <StatusBar style='auto'/>
-        </NavigationContainer>
+        </View>
     )
 }

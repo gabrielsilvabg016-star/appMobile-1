@@ -1,92 +1,45 @@
 import { StatusBar } from 'expo-status-bar';
 import { FlatList, StyleSheet, Text, View, Image, TouchableOpacity, Linking, Alert } from 'react-native';
+import { useContext } from 'react';
 
-const filmes = [
+import { PlayerContext } from './PlayerContext';
+import Player from './Player'
+
+const Skins = [
   {
     id: 1,
-    nome: 'Transcendence: A Revolução',
-    ano: 2014,
+    nome: 'Dorothy / Doro',
+    preco: 0,
+    imagem: require('./assets/doroRunning.gif'),
   },
   {
     id: 2,
-    nome: 'Kung Fu Panda 4',
-    ano: 2024,
+    nome: 'Omatsuri Mambo',
+    preco: 10,
+    imagem: require('./assets/mambo.gif'),
   },
   {
     id: 3,
-    nome: 'Matrix',
-    ano: 1999,
-  },
-  {
-    id: 4,
-    nome: 'The Batman',
-    ano: 2022,
-  },
-  {
-    id: 5,
-    nome: 'A Substância',
-    ano: 2024,
-  },
-  {
-    id: 6,
-    nome: 'Minecraft',
-    ano: 2025,
-  },
-  {
-    id: 7,
-    nome: 'Minecraft',
-    ano: 2025,
-  },
-  {
-    id: 8,
-    nome: 'Minecraft',
-    ano: 2025,
-  },
-  {
-    id: 9,
-    nome: 'Minecraft',
-    ano: 2025,
-  },
-  {
-    id: 10,
-    nome: 'Minecraft',
-    ano: 2025,
-  },
-  {
-    id: 11,
-    nome: 'Minecraft',
-    ano: 2025,
+    nome: 'Pato',
+    preco: 20,
+    imagem: require('./assets/shuba.gif'),
   },
 ];
 
 export default function ListSkins() {
+  const {setPlayerSkin} = useContext(PlayerContext);
 
   const criaItem = ({ item }) => (
     <TouchableOpacity
       style={styles.listaItem} 
-      onPress={() => 
-        Alert.alert(
-          'Sinopse', 
-          item.sinopse, 
-          [
-            {
-              text: 'Assistir trailer', 
-              onPress: () => Linking.openURL(item.url), 
-            },
-            {
-              text: 'Fechar', 
-              style: 'cancel', 
-            }
-          ]
-        )}
+      onPress={() => setPlayerSkin(item.imagem)}
     >
       <Image source={item.imagem} style={styles.listaImagem} />
 
       <View style={styles.listaDetalhes}>
         
         <Text style={styles.textoForte}>Nome: <Text style={styles.textoNormal}>{item.nome}</Text></Text>
-        <Text style={styles.textoForte}>Ano: <Text style={styles.textoNormal}>{item.ano}</Text></Text>
-        <Text style={styles.textoForte}>Gênero: <Text style={styles.textoNormal}>{item.genero}</Text></Text>
+        <Text style={styles.textoForte}>Preço: <Text style={styles.textoNormal}>{item.preco}</Text></Text>
       </View>
 
     </TouchableOpacity>
@@ -98,7 +51,7 @@ export default function ListSkins() {
       <Text style={styles.titulo}>Loja de Skins</Text>
 
       <FlatList
-        data={filmes} 
+        data={Skins} 
         renderItem={criaItem} 
         keyExtractor={item => item.id.toString()} 
         showsVerticalScrollIndicator={false}
@@ -132,7 +85,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   listaImagem: {
-    width: 60,
+    width: 75,
     height: 90,
     borderRadius: 8,
   },
