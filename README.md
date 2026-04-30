@@ -1,4 +1,4 @@
-bibliotecas utilizadas por enquanto
+bibliotecas utilizadas por enquanto no DoroRun
 
 <h3>[Musica]</h3>
 npm install expo-av<br>
