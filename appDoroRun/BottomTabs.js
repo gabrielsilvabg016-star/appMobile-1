@@ -4,9 +4,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import { Ionicons as Icon} from '@expo/vector-icons';
 
-import Game from './screens/Game';
-import Loja from './screens/Loja';
-import Musica from './screens/Musica';
+import Game from '../appDoroRunV2/screens/Game';
+import Loja from '../appDoroRunV2/screens/Loja';
+import Musica from '../appDoroRunV2/screens/Musica';
 
 const Tab = createBottomTabNavigator();
 

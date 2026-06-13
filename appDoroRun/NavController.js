@@ -1,10 +1,10 @@
 import React from "react";
 import BottomTabs from "./BottomTabs";
-import Creditos from "./screens/Creditos"
+import Creditos from "../appDoroRunV2/screens/Creditos"
 import { Text } from "react-native-web";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import Musica from "./screens/Musica";
+import Musica from "../appDoroRunV2/screens/Musica";
 
 const Drawer = createDrawerNavigator();
 
