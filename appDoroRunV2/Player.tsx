@@ -7,6 +7,8 @@ import Animated, {
   Easing,
   configureReanimatedLogger,
   ReanimatedLogLevel,
+  useAnimatedReaction,
+  runOnJS,
 } from 'react-native-reanimated';
 
 import { PlayerContext } from './PlayerContext';
@@ -17,18 +19,28 @@ configureReanimatedLogger({
 });
 
 export default function Player(): React.JSX.Element {
-  const { playerSkin } = useContext(PlayerContext);
+  const context = useContext(PlayerContext);
 
-  const posiInicial = useSharedValue<number>(270);
-  const translateY = useSharedValue<number>(posiInicial.value);
+  if (!context) {//typeScript exige que o context seja validado
+    throw new Error('PlayerContext não encontrado');
+  }
+
+  const {
+    playerSkin,
+    playerY,
+  } = context;
+
+  const posiInicial = useSharedValue<number>(playerY.value);
+  const translateY = useSharedValue<number>(playerY.value);
+
   const isJumping = useSharedValue<boolean>(false);
   const pressStart = useSharedValue<number>(0);
 
   const timeOutRef = useRef<any>(null);
 
   const max_hold_time: number = 500;
-  const max_jump: number = -250;
-  const min_jump: number = -10;
+  const max_jump: number = -390;
+  const min_jump: number = -150;
 
   const onPressIn = (): void => {
     if (isJumping.value) return;
@@ -53,13 +65,15 @@ export default function Player(): React.JSX.Element {
     const holdTime = Date.now() - pressStart.value;
     const clamped = Math.min(holdTime, max_hold_time);
 
-    const percent = Math.pow(clamped / max_hold_time, 2.5);
+    //duas maneiras de fazer esse percent, usando math max + math pow e a mais direta clamped/max
+    //const percent = Math.max(0.25, Math.pow(clamped / max_hold_time, 0.1));//ajusta a altura do toque rapido
+    const percent = clamped/max_hold_time;
     const jumpHeight = min_jump + (max_jump - min_jump) * percent;
 
     isJumping.value = true;
 
     translateY.value = withTiming(
-      jumpHeight,
+      posiInicial.value + jumpHeight,
       { duration: 300, easing: Easing.out(Easing.quad) },
       () => {
         translateY.value = withTiming(

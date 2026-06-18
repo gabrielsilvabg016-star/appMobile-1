@@ -36,20 +36,26 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 36,
+    textAlign: 'center',
     fontWeight: '900',
     color: '#ffb6c1', // rosa fraco
     textShadowColor: '#000000',
     textShadowOffset: { width: 2, height: 2 },
     textShadowRadius: 3,
     marginBottom: 40,
+    backgroundColor: '#da3688',
+    width:170,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: 'white',
   },
    button: {
     backgroundColor: '#ff69b4',
     paddingVertical: 12,
     paddingHorizontal: 30,
     borderRadius: 20,
-    borderWidth: 2,
-    borderColor: '#fff',
+    borderWidth: 1,
+    borderColor: 'white',
   },
    // texto do botão
   buttonText: {

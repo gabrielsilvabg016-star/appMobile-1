@@ -15,7 +15,7 @@ import * as Speech from 'expo-speech';
 import { PlayerContext } from './PlayerContext';
 import Player from './Player';
 
-interface Skin {
+interface Skin {//mudança de logica, preço e o necessario para desbloquar a skin, ao desbloquear não perde pontos//
   id: number;
   nome: string;
   preco: number;
@@ -48,7 +48,7 @@ const Skins: Skin[] = [
 ];
 
 export default function ListSkins(): React.JSX.Element {
-  const { setPlayerSkin } = useContext(PlayerContext);//ignorar, ta funcionando
+  const { setPlayerSkin } = useContext(PlayerContext);//ignorar, ta funcionando, o react precisa que context seja tipado pra parar de encomodar
 
   const falar = (texto: string): void => {
     Speech.stop();

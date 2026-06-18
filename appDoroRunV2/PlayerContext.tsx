@@ -1,10 +1,9 @@
 import React, { createContext, useState } from 'react';
+import { SharedValue, useSharedValue } from 'react-native-reanimated';
 
-//CONVERSÃO FEITA PELO GPT//
-//Muita coisa pode ter quebrado devido a essa conversão//
-
-interface PlayerContextType {
+interface PlayerContextType {//variaveis globais, tudo aqui dentro ta sendo exportado pra ser usado por outros objetos
   playerSkin: any;
+  playerY: SharedValue<number>;//sharedValue e mais rapido que useState para jogos
   setPlayerSkin: React.Dispatch<React.SetStateAction<any>>;
 }
 
@@ -19,8 +18,15 @@ export const PlayerProvider = ({
     require('./assets/doroRunning.gif')
   );
 
+  const playerY = useSharedValue(270);
+
   return (
-    <PlayerContext.Provider value={{ playerSkin, setPlayerSkin }}>
+    <PlayerContext.Provider value={{
+          playerSkin,
+          setPlayerSkin,
+          playerY
+          }}
+        >
       {children}
     </PlayerContext.Provider>
   );
