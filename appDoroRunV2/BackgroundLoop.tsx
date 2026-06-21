@@ -1,3 +1,4 @@
+import { pause } from 'expo-speech';
 import React, { useEffect } from 'react';
 import { Dimensions, Image, View } from 'react-native';
 import Animated, {
@@ -6,13 +7,16 @@ import Animated, {
   withTiming,
   withRepeat,
   Easing,
+  cancelAnimation,
 } from 'react-native-reanimated';
 
+type Props = {
+  paused: boolean;
+}
 const { width: telaLargura, height: telaAltura } = Dimensions.get('window');
-
 const source = require('./assets/imgBackground.png');
 
-export default function BackgroundLoop(): React.JSX.Element {
+export default function BackgroundLoop({paused}: Props): React.JSX.Element {
   const prog = useSharedValue<number>(0);
 
   const vell: number = 15000; // velocidade
@@ -23,15 +27,26 @@ export default function BackgroundLoop(): React.JSX.Element {
   const display: number = imageLargura * escala;
 
   useEffect(() => {
+    //console.log('entrou no useEffect paused: ',paused);
+
+    if(paused){
+      //console.log('paused: ',paused);
+      cancelAnimation(prog);
+      return;
+    }
+
+    const atual = prog.value%display;
+    const resto = display - atual; 
+    
     prog.value = withRepeat(
-      withTiming(display, {
-        duration: vell,
+      withTiming(prog.value + resto, {
+        duration: (resto/display)*vell,
         easing: Easing.linear,
       }),
       -1,
       false
     );
-  }, [display, prog, vell]);
+  }, [paused]);
 
   const animatedStyle = useAnimatedStyle(() => {
     return {

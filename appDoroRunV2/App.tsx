@@ -4,16 +4,16 @@ import { PlayerProvider } from './PlayerContext';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator} from '@react-navigation/native-stack';
 
-//import { play } from './MusicController';
+import { play } from './MusicController';
 import NavController from './NavController';
 import Home from './screens/Home';
 
 const Stack = createNativeStackNavigator();
 
 export default function App(): React.JSX.Element {
-  /*useEffect(() => {
+  useEffect(() => {
     play();
-  }, []);*/
+  }, []);
 
   return (
     

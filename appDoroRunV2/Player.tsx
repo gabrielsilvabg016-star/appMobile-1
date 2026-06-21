@@ -30,8 +30,8 @@ export default function Player(): React.JSX.Element {
     playerY,
   } = context;
 
-  const posiInicial = useSharedValue<number>(playerY.value);
-  const translateY = useSharedValue<number>(playerY.value);
+  const posiInicial = 270;
+  //const translateY = useSharedValue<number>(playerY.value);
 
   const isJumping = useSharedValue<boolean>(false);
   const pressStart = useSharedValue<number>(0);
@@ -72,13 +72,13 @@ export default function Player(): React.JSX.Element {
 
     isJumping.value = true;
 
-    translateY.value = withTiming(
-      posiInicial.value + jumpHeight,
+    playerY.value = withTiming(
+      posiInicial + jumpHeight,
       { duration: 300, easing: Easing.out(Easing.quad) },
       () => {
-        translateY.value = withTiming(
-          posiInicial.value,
-          { duration: 300, easing: Easing.in(Easing.quad) },
+        playerY.value = withTiming(
+          posiInicial,
+          { duration: 500, easing: Easing.in(Easing.quad) },
           () => {
             isJumping.value = false;
           }
@@ -88,7 +88,7 @@ export default function Player(): React.JSX.Element {
   };
 
   const style = useAnimatedStyle(() => ({
-    transform: [{ translateY: translateY.value }],
+    transform: [{ translateY: playerY.value }],
   }));
 
   return (
@@ -98,17 +98,30 @@ export default function Player(): React.JSX.Element {
       style={{
         left: 15,
         alignSelf: 'flex-start',
-        transform: [{ scaleX: -1 }],
+        transform: [{scaleX: -1}]
       }}
     >
+
+        <Animated.View 
+        style={[
+          {
+            position: 'absolute',
+            left: 19,
+            width: 90,
+            height: 115,
+            borderWidth: 2,
+            borderColor: 'red',
+          },
+          style,
+        ]}
+      />
+
       <Animated.Image
         source={playerSkin}
         style={[
           {
             width: 140,
             height: 140,
-            //borderWidth: 1,
-            //borderRadius: 80,
           },
           style,
         ]}

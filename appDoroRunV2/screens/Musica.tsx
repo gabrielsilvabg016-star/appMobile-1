@@ -1,16 +1,17 @@
-/*import { Text, View, Button } from 'react-native';
-// import { useState } from 'react'; seria utilizado para mostrar o nome da musica, mas fica para depois
-import { next, previous } from '../MusicController';
+import { Text, View, Button } from 'react-native';
+import { getMusicaAtual, next, pause, previous, resume } from '../MusicController';
 
 export default function Musica(): React.JSX.Element {
-  // const [currentMusicName, setCurrentMusicName] = useState('');
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>{getMusicaAtual().name}</Text>
       <View style={{ flexDirection: 'row', gap: 10 }}>
-        <Button title="Anterior" onPress={previous} />
-        <Button title="proxima" onPress={next} />
+        <Button title="Anterior" onPress={previous}/>
+        <Button title="Proxima" onPress={next}/>
+        <Button title="Pause" onPress={pause}/>
+        <Button title='Continuar' onPress={resume}/>
       </View>
     </View>
   );
-}*/
+}

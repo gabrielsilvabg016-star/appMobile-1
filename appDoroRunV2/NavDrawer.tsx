@@ -6,6 +6,11 @@ import { Ionicons } from '@expo/vector-icons';
 
 const Drawer = createDrawerNavigator();
 
+//====================================================================================================//
+//Tenho quase certeza que isso e codigo antigo que não e utilizado, mas vou deixar aqui por enquanto =//
+//====================================================================================================//
+
+
 type NavigationProps = {
   navigation: any;
 };
